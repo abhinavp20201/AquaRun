@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load cart %}
+{% load custom_filter %}
+<!-- body -->
+<style>
+
+</style>
+<div class="container-fluid mt-3">
+	<div class="row">
+
+
+		<!-- filter -->
+
+
+
+		<!-- all products -->
+		<div id='products' class="col-lg-8 mx-auto ">
+			<div class="row mx-auto">
+				{% for product in products %}
+				<div class="card mx-auto mb-3" id={{product.id}} style="width: 18rem;">
+					<img class="card-img-top" src="{{product.image.url}}" alt="Card image cap">
+					<div class="card-body">
+						<p style="color: #2874f0" class="card-title"><b>{{product.name}}</b></p>
+						<p class="card-text"><b>{{product.price|currency}}</b></p>
+						 <p class="card-text"><i>{{product.description}}</i></p>
+						<!-- {{product | is_in_cart:request.session.cart }} -->
+					</div>
+
+					<div class="card-footer p-3 no-gutters ">
+
+						{% if product|is_in_cart:request.session.cart %}
+						<div class="row no-gutters">
+							<form action="/#{{product.id}}" class="col-2 " method="post">
+								{% csrf_token %}
+								<input hidden type="text" name='product' value='{{product.id}}'>
+								<input hidden type="text" name='remove' value='True'>
+								<input type="submit" value=" - "
+									class="btn btn-block btn-success border-right bg-primary text-white">
+							</form>
+
+							<a class="text-center col btn btn-success bg-primary text-whit" href="/cart">Buy
+								{{product|cart_quantity:request.session.cart}} Bottle</a>
+
+
+							<form action="/#{{product.id}}" class="col-2 " method="post">
+								{% csrf_token %}
+								<input hidden type="text" name='product' value='{{product.id}}'>
+								<input type="submit" value=" + "
+									class="btn btn-block btn-success border-left bg-primary text-white">
+							</form>
+						</div>
+						{% else %}
+						<form action="/#{{product.id}}" method="POST" class="btn-block bg-primary text-whit">
+							{% csrf_token %}
+							<input hidden type="text" name='product' value='{{product.id}}'>
+							<input type="submit" class="float-right btn btn-success form-control bg-primary text-whit"
+								value="Order Now">
+						</form>
+						{% endif %}
+
+					</div>
+
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<style>
+.required-field{
+    content:"*";
+    color:red;
+}
+</style>
+
+<div class="container mt-4">
+
+    <div class="p-3 m-3">
+
+
+        <div class="col-lg-5 rounded mx-auto border pt-4">
+            <div class="text-center col">
+
+
+                <!-- <hr> -->
+                <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0);">
+            </div>
+
+            <form action="/signup" method="POST">
+
+                {% csrf_token %}
+
+                {% if error%}
+                <div class="alert alert-danger" role="alert">
+                    {{error}}
+                </div>
+                {% endif %}
+                <!-- firstname -->
+                <div class="form-group">
+                    
+                    <label for="">First Name*</label>
+                    <input type="text" name="firstname" id="" value="{{values.first_name}}"
+                        class="form-control form-control-sm" placeholder="" required="true">
+                </div>
+
+                <!-- last name -->
+                <div class="form-group">
+                    <label for="">Last Name*</label>
+                    <input type="text" name="lastname" id="" value="{{values.last_name}}"
+                        class="form-control form-control-sm">
+                </div>
+
+                <!-- phone -->
+                <div class="form-group">
+                    <div class="form-floating mb-3">
+                        <label for="">Phone*</label>
+                        <input type="tel" class="form-control" id="phone" name="phone"
+                        placeholder="Enter Number" pattern="[1-9]{1}[1-9]{9}" required="true">
+                    </div>
+                </div>
+               
+                <!-- email -->
+                <div class="form-group">
+                    <label for="">Email*</label>
+                    <input required type="email" name="email" id="" value="{{values.email}}"
+                        class=" form-control-sm form-control" placeholder="abc@gmail.com">
+                </div>
+
+                <!-- password -->
+                <div class="form-group">
+                    <label for="">Password*</label>
+                    <input type="password" name="password" id="" value="{{values.password}}"
+                           class="form-control form-control-sm">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Confirm Password*</label>
+                    <input type="password" name="password2" id="" value="{{values.password2}}"
+                           class="form-control form-control-sm">
+                </div>
+
+                <!--Check out button-->
+                <div class="mb-3 form-check">
+                    
+                </div>
+                <hr>
+
+                <button type="submit" class="btn btn-primary btn-sm col-lg-12">Create Account</button>
+
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

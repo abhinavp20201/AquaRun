@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="p-5 m-3">
+        <div class="col-lg-5 rounded mx-auto border pt-30">
+            <div class="text-center col">
+            
+                
+            <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0);">
+            
+            </div>
+            <h3 class="alert alert-light rounded-pill" style="text-align:center" >Login</h3>
+            <form action="/login" method="POST">
+                
+                {% csrf_token %}
+
+                {% if error%}
+                <div class="alert alert-danger" role="alert">
+                    {{error}}
+                </div>
+                {% endif %}
+                <!-- email -->
+                <div class="form-group">
+                    <label for="">Email</label>
+                    
+                    <input required type="email" name="email" id=""
+                    value="{{values.email}}" 
+                    class=" form-control-sm form-control" placeholder="Enter you Email" >
+                </div>
+
+
+                <!-- password -->
+                <div class="form-group">
+                    <label for="">Password</label>
+                    <input type="password" 
+                    name="password" 
+                    id=""
+                     class="form-control form-control-sm" placeholder="Enter Password" >
+                </div>
+
+                <!--Checkme button-->
+            <div class="mb-3 form-check">
+                </div>
+                <hr>
+                <button type="submit" class="btn btn-sm btn-success col-lg-12" style="background-color: #2874f0;">Login</button>
+
+
+                
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
